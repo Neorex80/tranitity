@@ -1,0 +1,5 @@
+Flask
+Flask-Login
+groq
+markdown
+Werkzeug

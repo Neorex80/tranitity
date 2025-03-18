@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .heading h2 {
+            margin: 0;
+        }
+        .heading p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+            color: #666;
+        }
+        .form-section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            flex: 1;
+        }
+        button {
+            padding: 10px 20px;
+            background: #71b7e6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #5499c7;
+        }
+        .itineraries {
+            margin-top: 20px;
+        }
+        .itinerary-item {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 15px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .itinerary-item h4 {
+            margin: 0 0 10px;
+        }
+        .markdown-content p {
+            margin: 0.5em 0;
+        }
+        a.logout-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+        a.logout-link:hover {
+            color: #c0392b;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h2>Welcome, {{ current_user.username }}</h2>
+            <p>Your Itineraries</p>
+        </div>
+        
+        <div class="form-section">
+            <form method="POST" action="{{ url_for('generate_ai_itinerary') }}">
+                <input type="text" name="destination" placeholder="Destination" required>
+                <input type="number" name="days" placeholder="Number of Days" required>
+                <input type="text" name="interests" placeholder="Interests (e.g., food, adventure)" required>
+                <button type="submit">Generate AI Itinerary</button>
+            </form>
+        </div>
+        
+        <div class="itineraries">
+            {% for itinerary in itineraries %}
+            <div class="itinerary-item">
+                <h4>{{ itinerary.destination }}</h4>
+                <!-- Convert itinerary.details from Markdown to HTML -->
+                <div class="markdown-content">
+                    {{ itinerary.details | markdown }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+</body>
+</html>
