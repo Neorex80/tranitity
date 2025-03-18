@@ -1,4 +1,4 @@
-```md
+
 # Travel Itinerary Planner (Flask + Groq)
 
 This is a demo Flask application that uses the **Groq API** to generate multi-day travel itineraries in Markdown format, then renders them on the dashboard page.
@@ -64,4 +64,3 @@ Werkzeug
 
 ## License
 This project is for demonstration purposes. Feel free to adapt it to your own needs.
-```
